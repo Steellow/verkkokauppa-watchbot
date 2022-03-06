@@ -3,13 +3,14 @@ const urlRegex = require("url-regex");
 const util = require("./util");
 const watchList = require("./watchList");
 const watcher = require("./watcher");
+const conzt = require("./constants");
 require("dotenv").config();
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start(async (ctx) => {
-  console.log("Bot started");
-  ctx.reply("TODO: Bot instructions");
+  console.log(`User ${util.getUserId(ctx)} started the bot`);
+  ctx.reply(conzt.welcomeMessage);
 });
 
 // Add url to watch list
@@ -17,7 +18,7 @@ bot.hears(urlRegex({ exact: true }), (ctx) => {
   const url = ctx.match[0];
 
   if (!util.isValidProudctUrl(url)) {
-    ctx.reply("Please send valid verkkokauppa.com product url");
+    ctx.reply("Please send valid product url");
     return;
   }
 
@@ -35,16 +36,20 @@ const checkAllUrls = async () => {
       chatsToNotify.forEach((chatId) => {
         bot.telegram.sendMessage(
           chatId,
-          `Product ${productTitle} is in stock!`
+          `Product "${productTitle}" is in stock! I deleted it from the watchlist, if you want you can re-submit the link.`
         );
+        bot.telegram.sendMessage(chatId, url);
       });
 
-      // TODO: Delete url from list
+      watchList.removeUrl(url);
     }
   }
 };
 
 setInterval(checkAllUrls, 60 * 1000);
+
+// For debugging purposes
+bot.hears("/check", checkAllUrls);
 
 //////////////////////////////////////////////
 

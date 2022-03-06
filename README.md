@@ -4,11 +4,15 @@ Telegram bot to get alert when product is back in stock. Send product url to add
 
 ## Ideas (aka todo)
 
-- Add link to the bot
 - Clean code, hella ugly now
 - Write proper documentation
+- How to setup tutorial
 - Add inline buttons to renew watcher or open website when in stock
 - Ability to view & delete current items
+- Athentication system
+- Persistent storage
+- Remove urls which return 404
+- Htts verkkokauppa returns greemn light?
 
 ## Stuff
 
