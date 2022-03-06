@@ -1,0 +1,16 @@
+{
+  "name": "verkkokauppa-watchdog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "author": "Hannes Kinnunen",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "node-html-parser": "^5.2.0",
+    "random-useragent": "^0.5.0",
+    "request": "^2.88.2",
+    "telegraf": "^4.7.0"
+  }
+}
