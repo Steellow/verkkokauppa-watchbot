@@ -24,7 +24,8 @@ const add = (url, ctx) => {
 
 const removeUrl = (url) => {
   console.log(`Removing ${url} from watch list`);
-  urls = { url, ...urls };
+  const { [url]: _, ...newUrls } = urls;
+  urls = newUrls;
 };
 
 const getProductWatchers = (url) => urls[url];
