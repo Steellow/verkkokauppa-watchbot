@@ -1,20 +1,8 @@
-const request = require("request");
 const randomUseragent = require("random-useragent");
 const parser = require("node-html-parser");
+const axios = require("axios");
 
-//////////////
-// SETTINGS //
-//////////////
-
-const intervalTime = 2 * 1000;
-
-const testUrl =
-  //   "https://www.verkkokauppa.com/fi/product/635767/Sony-PlayStation-5-Digital-Edition-PS5-pelikonsoli";
-  "https://www.verkkokauppa.com/fi/product/699752/LG-OLED65A1-65-4K-Ultra-HD-OLED-televisio";
-
-//////////////
-
-const getAvailability = (rawBody) => {
+const isProductInStock = (rawBody) => {
   const body = parser.parse(rawBody);
   const availability = body.querySelector(
     ".shipment-details .shipment-details__ready-for-shipment"
@@ -22,29 +10,25 @@ const getAvailability = (rawBody) => {
   return availability.childNodes.length > 0;
 };
 
-const checkAvailability = (url) => {
-  const options = {
-    url: url,
-    headers: {
-      "User-Agent": randomUseragent.getRandom(),
-    },
-  };
+const checkAvailability = async (url) => {
+  console.log(`Checking product availability for url ${url}`);
 
-  request(options, (err, res, body) => {
-    if (err) {
-      console.error("ERROR OCCURED");
-      console.error(err);
-      return;
+  try {
+    const response = await axios.get(url, {
+      headers: { "User-Agent": randomUseragent.getRandom() },
+    });
+
+    if (response.status !== 200) {
+      // TODO: Handle errors
     }
 
-    if (res.statusCode !== 200) {
-      console.debug("Status code: " + res.statusCode);
-      console.debug("Status message: " + res.statusMessage);
-      return;
-    }
-
-    console.log(getAvailability(body));
-  });
+    const inStock = isProductInStock(response.data);
+    console.log(inStock ? "Product is in stock!" : "Product not in sotck");
+    return inStock;
+  } catch (e) {
+    console.error(e);
+  }
+  return false;
 };
 
-// setInterval(checkAvailability, intervalTime);
+module.exports = { checkAvailability };

@@ -1,5 +1,14 @@
 # verkkokauppa-watchdog
 
+Telegram bot to get alert when product is back in stock. Send product url to add it to watchlist
+
+## Ideas (aka todo)
+
+- Clean code, hella ugly now
+- Add inline buttons to renew watcher or open website when in stock
+- Ability to view & delete current items
+- Get product title from url instead of request
+
 ## Stuff
 
 - Using random useragent every time since 'request' agent is blocked
