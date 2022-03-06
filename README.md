@@ -13,6 +13,7 @@ Telegram bot to get alert when product is back in stock. Send product url to add
 - Persistent storage
 - Remove urls which return 404
 - Htts verkkokauppa returns greemn light?
+- Random interval between 33 and 123 secs
 
 ## Stuff
 

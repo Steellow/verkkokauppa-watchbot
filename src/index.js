@@ -33,6 +33,7 @@ const checkAllUrls = async () => {
       const productTitle = util.getProductTitle(url);
 
       const chatsToNotify = watchList.getProductWatchers(url);
+      if (!chatsToNotify) return;
       chatsToNotify.forEach((chatId) => {
         bot.telegram.sendMessage(
           chatId,
@@ -46,7 +47,7 @@ const checkAllUrls = async () => {
   }
 };
 
-setInterval(checkAllUrls, 60 * 1000);
+// setInterval(checkAllUrls, 60 * 1000);
 
 // For debugging purposes
 bot.hears("/check", checkAllUrls);
