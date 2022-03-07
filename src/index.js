@@ -10,7 +10,7 @@ const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start(async (ctx) => {
   console.log(`User ${util.getUserId(ctx)} started the bot`);
-  ctx.reply(conzt.welcomeMessage);
+  ctx.reply(conzt.message.welcome);
 });
 
 // Add url to watch list
@@ -23,6 +23,11 @@ bot.hears(urlRegex({ exact: true }), (ctx) => {
   }
 
   watchList.add(url, ctx);
+  ctx.reply(conzt.message.itemAdded);
+
+  if (util.isGiganttiUrl(url)) {
+    ctx.reply(conzt.message.itemAddedGigantti, { parse_mode: "HTML" });
+  }
 });
 
 const checkAllUrls = async () => {
