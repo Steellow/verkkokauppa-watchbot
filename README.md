@@ -15,6 +15,8 @@ Telegram bot to get alert when product is back in stock. Send product url to add
 - Validate new links properly
 - Save list with node-persist
 - Split watcher into SPA and static files
+- Add admin users
+  - Notify about errors
 
 ## Stuff
 
