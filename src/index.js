@@ -25,6 +25,7 @@ bot.hears(urlRegex({ exact: true }), (ctx) => {
   watchList.add(url, ctx);
   ctx.reply(conzt.message.itemAdded);
 
+  // Special message about Gigantti's 💩 website
   if (util.isGiganttiUrl(url)) {
     ctx.reply(conzt.message.itemAddedGigantti, { parse_mode: "HTML" });
   }
@@ -52,7 +53,7 @@ const checkAllUrls = async () => {
   }
 };
 
-// setInterval(checkAllUrls, 60 * 1000);
+setInterval(checkAllUrls, 60 * 1000);
 
 // For debugging purposes
 bot.hears("/check", checkAllUrls);
